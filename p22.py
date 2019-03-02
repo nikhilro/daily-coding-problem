@@ -1,3 +1,6 @@
+import time
+
+
 def original_sentence_naive(string, words):  # O(2^N) time, O(n) space
     for i in range(1, len(string) + 1):
         if string[:i] in words:
@@ -33,16 +36,17 @@ print(original_sentence("thequickbrownfox",
 print(original_sentence("bedbathandbeyond", set(
     ["bed", "bath", "bedbath", "and", "beyond"])))
 
-# other backtracking problems 
+# other backtracking problems
 # (https://www.dailycodingproblem.com/blog/an-introduction-to-backtracking/)
 
 # The N queens puzzle
-# You have an N by N board. Write a function that returns the number 
-# of possible arrangements of the board where N queens can be placed on the 
-# board without threatening each other, i.e. no two queens share the same 
+# You have an N by N board. Write a function that returns the number
+# of possible arrangements of the board where N queens can be placed on the
+# board without threatening each other, i.e. no two queens share the same
 # row, column, or diagonal.
 
-def count_queens(n):
+
+def count_queens(n):  # O(n^n) time, O(n) space
     count = 0
     rows = set()
     diagonals = set()
@@ -54,22 +58,24 @@ def count_queens(n):
             count += 1
             return
         for y in range(n):
-            if y not in rows and x - y not in diagonals and x + y not in orth_diagonals:
+            if y not in rows and x - y not in diagonals \
+                    and x + y not in orth_diagonals:
                 rows.add(y)
                 orth_diagonals.add(x + y)
                 diagonals.add(x - y)
                 helper(x + 1)
-                try: 
+                try:
                     rows.remove(y)
                     orth_diagonals.remove(x + y)
                     diagonals.remove(x - y)
                 except KeyError:
                     pass
         return
-            
+
     helper(0)
     return count
-import time
+
+
 start = time.time()
 print(count_queens(8))
 print("Execution time: ", time.time() - start)
@@ -77,7 +83,10 @@ print("Execution time: ", time.time() - start)
 # Flight itinerary problem
 # The flight itinerary problem is as follows:
 
-# Given an unordered list of flights taken by someone, each represented as (origin, destination) pairs, and a starting airport, compute the person’s itinerary. If no such itinerary exists, return null. All flights must be used in the itinerary.
+# Given an unordered list of flights taken by someone, each represented as
+# (origin, destination) pairs, and a starting airport, compute the person’s
+# itinerary. If no such itinerary exists, return null. All flights must be
+# used in the itinerary.
 
 # For example, given the following list of flights:
 
@@ -87,6 +96,15 @@ print("Execution time: ", time.time() - start)
 # SFO ➔ HNL
 # and starting airport YUL, you should return YUL ➔ ORD ➔ SFO ➔ HNL ➔ AKL.
 
-        
+
+def itinerary(pairs, start): # O(n) time, O(n) space, assumes 1 dest for origin  
+    transfers = {origin: dest for origin, dest in pairs}
+    itinerary = [start]
+    while itinerary[-1] in transfers:
+        itinerary.append(transfers[itinerary[-1]])
+        transfers.pop(itinerary[-2])
+    return itinerary if not transfers else None
 
 
+print(itinerary([('HNL', 'AKL'), ('YUL', 'ORD'),
+                ('ORD', 'SFO'), ('SFO', 'HNL')], 'YUL'))
