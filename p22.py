@@ -97,7 +97,7 @@ print("Execution time: ", time.time() - start)
 # and starting airport YUL, you should return YUL ➔ ORD ➔ SFO ➔ HNL ➔ AKL.
 
 
-def itinerary(pairs, start): # O(n) time, O(n) space, assumes 1 dest for origin  
+def itinerary(pairs, start):  # O(n) time, O(n) space, assumes 1 dest for origin
     transfers = {origin: dest for origin, dest in pairs}
     itinerary = [start]
     while itinerary[-1] in transfers:
@@ -107,4 +107,58 @@ def itinerary(pairs, start): # O(n) time, O(n) space, assumes 1 dest for origin
 
 
 print(itinerary([('HNL', 'AKL'), ('YUL', 'ORD'),
-                ('ORD', 'SFO'), ('SFO', 'HNL')], 'YUL'))
+                    ('ORD', 'SFO'), ('SFO', 'HNL')], 'YUL'))
+
+# Sudoku
+# Solve a well-posed Sudoku puzzle
+
+
+def solve_sudoku(board):  # O(n^2 * n) time, O(n^2) space
+    rows = [set() for _ in range(len(board))]
+    columns = [set() for _ in range(len(board))]
+    boxes = [set() for _ in range(9)]  # [set() for range(len(board))]
+
+    def helper(step):
+        nonlocal rows, columns, boxes, board
+        x, y = step % len(board), step // len(board)
+        while x < len(board) and y < len(board) and board[x][y] != 0:
+            step += 1
+            x, y = step // len(board), step % len(board)
+        if step >= len(board) ** 2:  # x >= len(board) - 1 and y >= len(board) - 1
+            return True
+        for num in range(1, len(board) + 1):
+            if num not in rows[x] and num not in columns[y] and num not in boxes[3 * (y // 3) + x // 3]:
+                board[x][y] = num
+                rows[x].add(num)
+                columns[y].add(num)
+                boxes[3 * (y // 3) + x // 3].add(num)
+                if helper(step):
+                    return True
+                board[x][y] = 0
+                rows[x].remove(num)
+                columns[y].remove(num)
+                boxes[3 * (y // 3) + x // 3].remove(num)
+        return False
+
+    for x in range(len(board)):
+        for y in range(len(board)):
+            num = board[x][y]
+            if num != 0:
+                rows[x].add(num)
+                columns[y].add(num)
+                boxes[3 * (y // 3) + x // 3].add(num)
+
+    return board if helper(0) else None
+
+
+start = time.time()
+print(solve_sudoku([[5, 1, 7, 6, 0, 0, 0, 3, 4],
+                    [2, 8, 9, 0, 0, 4, 0, 0, 0],
+                    [3, 4, 6, 2, 0, 5, 0, 9, 0],
+                    [6, 0, 2, 0, 0, 0, 0, 1, 0],
+                    [0, 3, 8, 0, 0, 6, 0, 4, 7],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 9, 0, 0, 0, 0, 0, 7, 8],
+                    [7, 0, 3, 4, 0, 0, 5, 6, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0]]))
+print("Execution time: ", time.time() - start)
