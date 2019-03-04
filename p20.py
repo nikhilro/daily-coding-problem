@@ -8,12 +8,20 @@ class Node:
 
     def reversed(self):
         if not self.next:
-            yield self.val
+            yield self.val 
         else:
-            for node in self.next.reversed():
-                yield node
+            yield from self.next.reversed()
             yield self.val
+            
+        # works
+        # if not self.next:
+        #     yield self.val
+        # else:
+        #     for node in self.next.reversed():
+        #         yield node
+        #     yield self.val
 
+        # wrong
         # if not self.next:
         #     yield self.val 
         # else: 
