@@ -1,4 +1,4 @@
-def num_knight_tours(n):
+def num_knight_tours(n): # not tested, O(n ^ 2 ^ ( 8 ^ (n ^ 2))) time, O(n * n) space
     moves = set()
     def helper(i, j):
         if 0 > i or i > n - 1 or 0 > j or j > n - 1:
