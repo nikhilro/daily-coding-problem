@@ -1,4 +1,4 @@
-def remove_columns(matrix):
+def remove_columns(matrix): # O(n * m) time, O(1) space
     count = 0
     for j in range(len(matrix[0])):
         for i in range(len(matrix)):

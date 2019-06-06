@@ -1,4 +1,4 @@
-def increasing_length_first(arr):
+def increasing_length_first(arr): # O(n^2) time, O(n) space
     cache, longest = [1] * len(arr), 0
 
     for i in reversed(range(len(arr) - 1)):

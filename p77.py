@@ -1,6 +1,6 @@
 from operator import itemgetter
 
-def merge_overlap(intervals):
+def merge_overlap(intervals): # O(nlogn) time, O(n) space to return merged
     intervals.sort(key=itemgetter(0))
 
     merged = [intervals[0]] 
