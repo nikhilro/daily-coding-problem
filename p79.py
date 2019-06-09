@@ -1,4 +1,4 @@
-def check_non_decreasing(arr):
+def check_non_decreasing(arr): # O(n) time, O(1) space
     count = 0
     for i in range(1, len(arr)):
         if arr[i] < arr[i - 1]:
