@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\nikhi\\Anaconda3\\python.exe",
+    "python.pythonPath": "/usr/bin/python3",
     "terminal.integrated.shell.windows": "C:\\\\Windows\\\\System32\\\\cmd.exe",
     "terminal.integrated.shellArgs.windows": [
         "C:\\Users\nikhi\\Anaconda3\\Scripts\\activate.bat"
