@@ -28,5 +28,6 @@
         "terminalCursor.foreground": "#ffffd7"
     },
     "terminal.integrated.fontWeightBold": "900",
-    "terminal.integrated.fontWeight": "800"
+    "terminal.integrated.fontWeight": "800",
+    "python.formatting.provider": "black"
 }
